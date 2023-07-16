@@ -4,7 +4,7 @@ ItemModel apple = ItemModel(
   descripition:
       'A melhor maca da região e que conta com o melhor preco de qualquer quitanda. ',
   imageUrl: 'assets/img/apple.png',
-  itemName: 'Maca',
+  itemName: 'Maçã',
   price: 5.5,
   unit: 'kg',
 );
