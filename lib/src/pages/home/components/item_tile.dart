@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:green_grocer/src/models/item_model.dart';
 import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
+import 'package:green_grocer/src/pages/product/product_screen.dart';
 import 'package:green_grocer/src/services/util_services.dart';
 
 class ItemTile extends StatelessWidget {
@@ -15,54 +16,67 @@ class ItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          elevation: 3,
-          shadowColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              30,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return ProductScreen(
+                    item: item,
+                  );
+                },
+              ),
+            );
+          },
+          child: Card(
+            elevation: 3,
+            shadowColor: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                //Imagem
-                Expanded(
-                  child: Image.asset(item.imageUrl),
-                ),
-
-                //Nome
-                Text(
-                  item.itemName,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //Imagem
+                  Expanded(
+                    child: Image.asset(item.imageUrl),
                   ),
-                ),
 
-                //Preco - Unidade
-                Row(
-                  children: [
-                    Text(
-                      utilServices.priceToCurrency(item.price),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: CustomColors.customSwatchColor,
-                      ),
+                  //Nome
+                  Text(
+                    item.itemName,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      '/${item.unit}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade500,
+                  ),
+
+                  //Preco - Unidade
+                  Row(
+                    children: [
+                      Text(
+                        utilServices.priceToCurrency(item.price),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: CustomColors.customSwatchColor,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      Text(
+                        '/${item.unit}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
