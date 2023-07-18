@@ -4,10 +4,18 @@ import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
 import 'package:green_grocer/src/pages/widgets/quantity_widget.dart';
 import 'package:green_grocer/src/services/util_services.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
   ProductScreen({super.key, required this.item});
   final ItemModel item;
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
   final UtilServices utilServices = UtilServices();
+
+  int cartItemQuantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,8 @@ class ProductScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: Hero(
-                  tag: item.imageUrl,
-                  child: Image.asset(item.imageUrl),
+                  tag: widget.item.imageUrl,
+                  child: Image.asset(widget.item.imageUrl),
                 ),
               ),
               Expanded(
@@ -46,7 +54,7 @@ class ProductScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              item.itemName,
+                              widget.item.itemName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -55,16 +63,21 @@ class ProductScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const QuantityWidget(
-                            suffixText: '',
-                            value: 10,
+                          QuantityWidget(
+                            suffixText: widget.item.unit,
+                            value: cartItemQuantity,
+                            result: (quantity) {
+                              setState(() {
+                                cartItemQuantity = quantity;
+                              });
+                            },
                           )
                         ],
                       ),
 
                       // Preco
                       Text(
-                        utilServices.priceToCurrency(item.price),
+                        utilServices.priceToCurrency(widget.item.price),
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
@@ -81,7 +94,7 @@ class ProductScreen extends StatelessWidget {
                           ),
                           child: SingleChildScrollView(
                             child: Text(
-                              item.descripition,
+                              widget.item.descripition,
                               style: const TextStyle(height: 1.5),
                             ),
                           ),

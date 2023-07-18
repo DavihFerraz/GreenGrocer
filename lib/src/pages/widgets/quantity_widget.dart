@@ -6,10 +6,12 @@ import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
 class QuantityWidget extends StatelessWidget {
   final int value;
   final String suffixText;
+  final Function(int quantity) result;
   const QuantityWidget({
     super.key,
     required this.suffixText,
     required this.value,
+    required this.result,
   });
 
   @override
@@ -34,7 +36,11 @@ class QuantityWidget extends StatelessWidget {
           _QuantityButton(
             icon: Icons.remove,
             color: Colors.grey,
-            onPressed: () {},
+            onPressed: () {
+              if (value == 1) return;
+              int resultCount = value - 1;
+              result(resultCount);
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -51,7 +57,10 @@ class QuantityWidget extends StatelessWidget {
           _QuantityButton(
             icon: Icons.add,
             color: CustomColors.customSwatchColor,
-            onPressed: () {},
+            onPressed: () {
+              int resultCount = value + 1;
+              result(resultCount);
+            },
           ),
         ],
       ),
