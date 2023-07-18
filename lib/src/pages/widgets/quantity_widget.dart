@@ -83,9 +83,7 @@ class _QuantityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {
-          onPressed;
-        },
+        onTap: onPressed,
         borderRadius: BorderRadius.circular(50),
         child: Ink(
           height: 25,
