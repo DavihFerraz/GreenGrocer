@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:green_grocer/src/models/item_model.dart';
 import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
+import 'package:green_grocer/src/pages/widgets/quantity_widget.dart';
 import 'package:green_grocer/src/services/util_services.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -54,11 +55,10 @@ class ProductScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            height: 30,
-                            width: 70,
-                            color: Colors.red,
-                          ),
+                          const QuantityWidget(
+                            suffixText: '',
+                            value: 10,
+                          )
                         ],
                       ),
 
