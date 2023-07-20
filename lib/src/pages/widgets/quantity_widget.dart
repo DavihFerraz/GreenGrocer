@@ -3,15 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
 
+// ignore: must_be_immutable
 class QuantityWidget extends StatelessWidget {
   final int value;
   final String suffixText;
   final Function(int quantity) result;
-  const QuantityWidget({
+  bool isRemoveble;
+  QuantityWidget({
     super.key,
     required this.suffixText,
     required this.value,
     required this.result,
+    this.isRemoveble = false,
   });
 
   @override
@@ -35,10 +38,11 @@ class QuantityWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _QuantityButton(
-            icon: Icons.remove,
-            color: Colors.grey,
+            icon:
+                !isRemoveble || value > 1 ? Icons.remove : Icons.delete_forever,
+            color: !isRemoveble || value > 1 ? Colors.grey : Colors.red,
             onPressed: () {
-              if (value == 1) return;
+              if (value == 1 && !isRemoveble) return;
               int resultCount = value - 1;
               result(resultCount);
             },

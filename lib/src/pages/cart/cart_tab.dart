@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:green_grocer/src/models/cart_item.dart';
 import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
 import 'package:green_grocer/src/pages/cart/components/cart_tile.dart';
 import 'package:green_grocer/src/services/util_services.dart';
-import 'package:green_grocer/src/config/app_data.dart' as _appData;
+// ignore: library_prefixes
+import 'package:green_grocer/src/config/app_data.dart' as appData;
 
-class CartTab extends StatelessWidget {
+class CartTab extends StatefulWidget {
+  const CartTab({super.key});
+
+  @override
+  State<CartTab> createState() => _CartTabState();
+}
+
+class _CartTabState extends State<CartTab> {
   final UtilServices utilServices = UtilServices();
-  CartTab({super.key});
+
+  void removeItemFromCart(CartItemModel cartItem) {
+    setState(() {
+      appData.cartItems.remove(cartItem);
+    });
+  }
+
+  double cartTotalPrice() {
+    double total = 0;
+    for (var item in appData.cartItems) {
+      total += item.totalPrice();
+    }
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +40,21 @@ class CartTab extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
+              itemCount: appData.cartItems.length,
               itemBuilder: (_, index) {
-                return CartTile(cartItem: _appData.cartItems[index],);
+                final cartItem = appData.cartItems[index];
+                return CartTile(
+                  cartItem: appData.cartItems[index],
+                  remove: removeItemFromCart,
+                  updatedQuantity: (qtd) {
+                    if (qtd == 0) {
+                      removeItemFromCart(appData.cartItems[index]);
+                    } else {
+                      setState(() => cartItem.quantity = qtd);
+                    }
+                  },
+                );
               },
-              itemCount: _appData.cartItems.length,
             ),
           ),
           Container(
@@ -49,7 +82,9 @@ class CartTab extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  utilServices.priceToCurrency(50.5),
+                  utilServices.priceToCurrency(
+                    cartTotalPrice(),
+                  ),
                   style: TextStyle(
                     fontSize: 23,
                     color: CustomColors.customSwatchColor,
