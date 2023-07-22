@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_grocer/src/pages/widgets/custom_text_field.dart';
+import 'package:green_grocer/src/config/app_data.dart' as appData;
 
 class ProfileTab extends StatelessWidget {
   const ProfileTab({super.key});
@@ -11,38 +12,66 @@ class ProfileTab extends StatelessWidget {
         title: const Text(
           'Perfil do usuário',
         ),
-        actions: const [
-          Icon(
-            Icons.logout,
-          )
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
         ),
-        child: Column(
-          children: const [
-            CustomTextField(
-              icon: Icons.mail,
-              label: 'Email',
+        physics: const BouncingScrollPhysics(),
+        children: [
+          //Email
+          CustomTextField(
+            initialValue: appData.user.email,
+            icon: Icons.mail,
+            label: 'Email',
+            readOnly: true,
+          ),
+          //Nome
+          CustomTextField(
+            initialValue: appData.user.name,
+            icon: Icons.person,
+            label: 'Nome',
+            readOnly: true,
+          ),
+          //Celular
+          CustomTextField(
+            initialValue: appData.user.phone,
+            icon: Icons.phone,
+            label: 'Celular',
+            readOnly: true,
+          ),
+          //CPF
+          CustomTextField(
+            initialValue: appData.user.cpf,
+            icon: Icons.file_copy,
+            label: 'CPF',
+            isSecret: true,
+            readOnly: true,
+          ),
+
+          SizedBox(
+            height: 50,
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(
+                  color: Colors.green,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onPressed: () {},
+              child: const Text('Atualizar senha '),
             ),
-            CustomTextField(
-              icon: Icons.person,
-              label: 'Nome',
-            ),
-            CustomTextField(
-              icon: Icons.phone,
-              label: 'Celular',
-            ),
-            CustomTextField(
-              icon: Icons.file_copy,
-              label: 'CPF',
-              isSecret: true,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
