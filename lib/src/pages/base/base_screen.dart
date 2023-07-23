@@ -3,6 +3,8 @@ import 'package:green_grocer/src/pages/cart/cart_tab.dart';
 import 'package:green_grocer/src/pages/home/home_tab.dart';
 import 'package:green_grocer/src/pages/profile/profile_tab.dart';
 
+import '../orders/orders_tab.dart';
+
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
 
@@ -20,13 +22,11 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
-          const HomeTab(),
-          const CartTab(),
-          Container(
-            color: Colors.blue,
-          ),
-          const ProfileTab()
+        children: const [
+          HomeTab(),
+          CartTab(),
+          OrdersTab(),
+          ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
