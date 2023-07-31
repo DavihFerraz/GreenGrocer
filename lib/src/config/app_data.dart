@@ -101,10 +101,28 @@ List<OrderModel> orders = [
       CartItemModel(
         item: apple,
         quantity: 2,
-      )
+      ),
+      CartItemModel(
+        item: mango,
+        quantity: 2,
+      ),
     ],
     overdueDateTime: DateTime.parse('2023-07-28 23:59:59'),
     status: 'pending_payment',
+    total: 11,
+  ),
+  OrderModel(
+    copyAndPaste: 'q1w2er44t5y6',
+    createdDateTime: DateTime.parse('2023-07-28 21:59:59'),
+    id: '2',
+    items: [
+      CartItemModel(
+        item: apple,
+        quantity: 1,
+      ),
+    ],
+    overdueDateTime: DateTime.parse('2023-07-28 23:59:59'),
+    status: 'refunded',
     total: 11,
   ),
 ];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:green_grocer/src/models/cart_item.dart';
 import 'package:green_grocer/src/models/order_model.dart';
+import 'package:green_grocer/src/pages/orders/components/order_status.dart';
 import 'package:green_grocer/src/services/util_services.dart';
 
 class OrderTile extends StatelessWidget {
@@ -37,7 +39,80 @@ class OrderTile extends StatelessWidget {
               ),
             ],
           ),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          children: [
+            SizedBox(
+              height: 150,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: ListView(
+                      children: order.items.map((orderItem) {
+                        return _OrderItemWidget(
+                          utilServices: utilServices,
+                          orderItem: orderItem,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: OrderStatus(
+                      status: order.status,
+                      isOverdue: order.overdueDateTime.isBefore(
+                        DateTime.now(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class _OrderItemWidget extends StatelessWidget {
+  const _OrderItemWidget({
+    Key? key,
+    required this.utilServices,
+    required this.orderItem,
+  }) : super(key: key);
+
+  final UtilServices utilServices;
+  final CartItemModel orderItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 10,
+      ),
+      child: Row(
+        children: [
+          Text(
+            '${orderItem.quantity} ${orderItem.item.unit} ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: Text(orderItem.item.itemName),
+          ),
+          Text(
+            utilServices.priceToCurrency(
+              orderItem.totalPrice(),
+            ),
+          ),
+        ],
       ),
     );
   }
