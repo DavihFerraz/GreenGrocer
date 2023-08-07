@@ -108,7 +108,7 @@ List<OrderModel> orders = [
       ),
     ],
     overdueDateTime: DateTime.parse('2023-07-28 23:59:59'),
-    status: 'pending_payment',
+    status: 'preparing_purchase',
     total: 11,
   ),
   OrderModel(
@@ -122,7 +122,7 @@ List<OrderModel> orders = [
       ),
     ],
     overdueDateTime: DateTime.parse('2023-07-28 23:59:59'),
-    status: 'refunded',
+    status: 'delivered',
     total: 11,
   ),
 ];
