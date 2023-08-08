@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:green_grocer/src/models/cart_item.dart';
 import 'package:green_grocer/src/models/order_model.dart';
 import 'package:green_grocer/src/pages/orders/components/order_status.dart';
+import 'package:green_grocer/src/pages/widgets/payment_dialog.dart';
 import 'package:green_grocer/src/services/util_services.dart';
 
 class OrderTile extends StatelessWidget {
@@ -40,6 +41,7 @@ class OrderTile extends StatelessWidget {
               ),
             ],
           ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           children: [
             IntrinsicHeight(
@@ -75,7 +77,48 @@ class OrderTile extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+                children: [
+                  const TextSpan(
+                    text: 'Total ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: utilServices.priceToCurrency(order.total),
+                  )
+                ],
+              ),
+            ),
+            Visibility(
+              visible: order.status == 'pending_payment',
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: (() {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return PaymentDialog();
+                    },
+                  );
+                }),
+                icon: Image.asset(
+                  'assets/img/pix.png',
+                  height: 18,
+                ),
+                label: const Text('Ver QR Code Pix'),
+              ),
+            ),
           ],
         ),
       ),
