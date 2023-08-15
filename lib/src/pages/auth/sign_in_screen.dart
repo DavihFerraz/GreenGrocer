@@ -85,9 +85,14 @@ class SignInScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //Email
-                    const CustomTextField(
+                    CustomTextField(
                       icon: Icons.email,
                       label: 'Email',
+                      validator: (email) {
+                        if (email == null || email.isEmpty) return 'Digite seu email!';
+                        if (!email.isEmail) return 'Digite um email válido!';
+                        return null;
+                      },
                     ),
 
                     //Senha
