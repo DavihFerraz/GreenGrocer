@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes
+
 import 'package:flutter/material.dart';
 import 'package:green_grocer/src/config/app_data.dart' as appData;
 import 'package:green_grocer/src/pages/orders/components/order_tile.dart';

@@ -70,7 +70,7 @@ class OrderStatus extends StatelessWidget {
 }
 
 class _CustomDivider extends StatelessWidget {
-  const _CustomDivider({super.key});
+  const _CustomDivider();
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,7 @@ class _StatusDot extends StatelessWidget {
             border: Border.all(
               color: CustomColors.customSwatchColor,
             ),
-            color: isActive
-                ? backgroundColor ?? CustomColors.customSwatchColor
-                : Colors.transparent,
+            color: isActive ? backgroundColor ?? CustomColors.customSwatchColor : Colors.transparent,
           ),
           child: isActive
               ? const Icon(
