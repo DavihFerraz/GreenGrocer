@@ -1,10 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:green_grocer/src/pages/auth/config/custom_colors.dart';
-import 'package:green_grocer/src/pages/auth/sign_up_screen.dart';
-import 'package:green_grocer/src/pages/base/base_screen.dart';
 import 'package:green_grocer/src/pages/widgets/custom_text_field.dart';
+import 'package:green_grocer/src/routes/app_routes.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -108,13 +107,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (c) {
-                                return const BaseScreen();
-                              },
-                            ),
-                          );
+                          Get.offNamed(Routes.base);
                         },
                         child: const Text(
                           'Entrar',
@@ -130,8 +123,7 @@ class SignInScreen extends StatelessWidget {
                         onPressed: () {},
                         child: Text(
                           'Esqueceu a senha?',
-                          style: TextStyle(
-                              color: CustomColors.customConstrastColor),
+                          style: TextStyle(color: CustomColors.customConstrastColor),
                         ),
                       ),
                     ),
@@ -175,13 +167,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (c) {
-                                return SignUpScreen();
-                              },
-                            ),
-                          );
+                          Get.toNamed(Routes.signUp);
                         },
                         child: const Text(
                           'Criar conta',
